@@ -5,13 +5,6 @@ var env = require('jsdom').env;
 env('', function (errors, window) {
 
   var $ = require('jquery')(window);
-  // var flags = [
-  //   'fired', // Default
-  //   'once',
-  //   'memory',
-  //   'unique',
-  //   'stopOnFalse'
-  // ];
 
   function fn1(v) {
     console.log('fn1', v);
@@ -19,18 +12,20 @@ env('', function (errors, window) {
 
   function fn2(v) {
     console.log('fn2', v);
-    return false;
   }
 
   // Instance
-  var cbs = $.Callbacks();
+  var cbs = $.Callbacks('memory');
 
   cbs.add(fn1);
-  cbs.fire('foo');
+  cbs.fire('oi');
   cbs.add(fn2);
   cbs.add(fn1);
-  cbs.fire('bar');
-  cbs.remove(fn1);
-  cbs.fire('foobar');
+
+  // Output esperado
+  //
+  // fn1 oi
+  // fn2 oi
+  // fn1 oi
 
 });

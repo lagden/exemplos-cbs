@@ -36,32 +36,13 @@ env('', function(errors, window) {
     console.log(textStatus, error);
   }
 
-  // Broadcast
-  var Broadcast = {};
-  $.Broadcast = function(id) {
-    var callbacks;
-    var topic = id && Broadcast[id];
-    if (!topic) {
-      callbacks = $.Callbacks();
-      topic = {
-        publish: callbacks.fire,
-        subscribe: callbacks.add,
-        unsubscribe: callbacks.remove
-      };
-      if (id) {
-        Broadcast[id] = topic;
-      }
-    }
-    return topic;
-  };
-
-  // Subscribe
-  var user = $.Broadcast('user').subscribe(nomeCompleto);
-  var userPhone = $.Broadcast('userPhone').subscribe(celular);
+  // Callbacks instance
+  var user = $.Callbacks('memory unique');
+  user.add(nomeCompleto);
+  user.add(celular);
 
   // Call Ajax
   getUser(1)
-    .done(user.publish)
-    .done(userPhone.publish)
+    .done(user.fire)
     .fail(requestFail);
 });
