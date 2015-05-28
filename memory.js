@@ -18,14 +18,12 @@ env('', function (errors, window) {
   var cbs = $.Callbacks('memory');
 
   cbs.add(fn1);
-  cbs.fire('oi');
+  cbs.fire('dispara o fn2 tb!!');
   cbs.add(fn2);
-  cbs.add(fn1);
 
   // Output esperado
   //
-  // fn1 oi
-  // fn2 oi
-  // fn1 oi
+  // fn1 dispara o fn2 tb!!
+  // fn2 dispara o fn2 tb!!
 
 });

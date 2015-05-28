@@ -18,13 +18,15 @@ env('', function (errors, window) {
   var cbs = $.Callbacks('unique');
 
   cbs.add(fn1);
-  cbs.add(fn2);
   cbs.add(fn1);
-  cbs.fire('oi');
+  cbs.add(fn1);
+  cbs.add(fn2);
+  cbs.add(fn2);
+  cbs.fire('apenas 1 de cada');
 
   // Output esperado
   //
-  // fn1 oi
-  // fn2 oi
+  // fn1 apenas 1 de cada
+  // fn2 apenas 1 de cada
 
 });

@@ -20,6 +20,7 @@ env('', function (errors, window) {
   cbs.add(fn1);
   cbs.fire('oi');
   cbs.add(fn2);
+  cbs.fire('denovo');
   cbs.add(fn1);
 
   // Output esperado
