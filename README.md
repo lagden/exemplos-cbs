@@ -16,11 +16,11 @@ Basta colocar `node` + o `exemplo_desejado.js`
 
 ### Exemplo diferenciado
 
-O arquivo `deferred.js` é um exemplo mais parrudo e tem um jeito
+O arquivo `user.js` é um exemplo mais parrudo e tem um jeito
 especial para executá-lo.
 
 ```
-USERID=123 node deferred.js
+USERID=123 node user.js
 ```
 
 ## Crédito
