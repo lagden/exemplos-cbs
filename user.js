@@ -1,4 +1,4 @@
-// usage: USERID=123 node deferred.js
+// usage: USERID=123 node user.js
 
 'use strict';
 
@@ -17,8 +17,8 @@ env('', function(errors, window) {
   };
 
   // Request
-  function getUser(id) {
-    id = process.env.USERID || id;
+  function getUser() {
+    var id = process.env.USERID || 1;
     return $.getJSON('https://randomuser.me/g/?seed=' + id);
   }
 
@@ -42,7 +42,14 @@ env('', function(errors, window) {
   user.add(celular);
 
   // Call Ajax
-  getUser(1)
+
+  getUser()
     .done(user.fire)
     .fail(requestFail);
+
+  // Using: jqXHR.then(done, fail)
+  //
+  // getUser()
+  //   .then(user.fire, requestFail);
+
 });
