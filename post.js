@@ -1,5 +1,3 @@
-// usage: USERID=123 node user.js
-
 'use strict';
 
 var env = require('jsdom').env;
@@ -18,20 +16,23 @@ env('', function(errors, window) {
     }
   });
 
-  // Request
-  function getUser() {
-    var id = process.env.USERID || 1;
-    return $.getJSON('https://randomuser.me/g/?seed=' + id);
+  // Post
+  function post() {
+    return $.post('https://webflow.com/api/v1/form/53ebd99b34a1425d72e7bd22', {
+      'name': 'Email Form',
+      'source': 'http://maeguru.com.br/contato.html',
+      'test': 'false',
+      'fields': {
+        'Nome': 'nodeBot',
+        'E-mail': 'bot@node.com',
+        'Mensagem': 'Intergalactic planetary / Planetary intergalactic.'
+      }
+    });
   }
 
   // Callbacks
-  function nomeCompleto(r) {
-    var user = r.results[0].user;
-    console.log(user.name.first + ' ' + user.name.last);
-  }
-
-  function celular(r) {
-    console.log(r.results[0].user.cell);
+  function resposta(r) {
+    console.log(r);
   }
 
   function requestFail(jqxhr, textStatus, error) {
@@ -40,16 +41,10 @@ env('', function(errors, window) {
 
   // Callbacks instance
   var user = $.Callbacks('memory unique');
-  user.add(nomeCompleto);
-  user.add(celular);
+  user.add(resposta);
 
   // Call Ajax
-  getUser()
+  post()
     .done(user.fire)
     .fail(requestFail);
-
-  // Using: jqXHR.then(done, fail)
-  // getUser()
-  //   .then(user.fire, requestFail);
-
 });
